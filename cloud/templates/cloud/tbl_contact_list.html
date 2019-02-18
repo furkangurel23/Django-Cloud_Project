@@ -1,0 +1,17 @@
+{% extends "cloud/base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+        {% for contact in contacts %}
+            {% if contact.owner_id.user.username == user.username %}
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="{{ contact.get_absolute_url }}">{{ contact.full_name }}</a>
+                            <small class="text-muted">{{ contact.e_mail }}</small>
+                        </div>
+                    </div>
+                </article>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends "cloud/base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h2 class="account-heading">Folders</h2>
+        {% for folder in folders %}
+            {% if folder.owner_id.user.username == user.username %}
+                {% if  not folder.parent_folder %}
+                    <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                <a class="mr-2" href="{{ folder.get_absolute_url }}">{{ folder.title }}</a>
+                                <small class="text-muted">{{ folder.date|date:"F d, Y" }}</small>
+                            </div>
+                            <h2>
+                                <small class="article-title" href="#">{{ folder.describtion }}</small>
+                            </h2> <!-- "article-title"-->
+                            <p class="article-content">{{ folder.size }}</p>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <h2 class="account-heading">Files</h2>
+        {% for file in files %}
+            {% if file.owner_id.user.username == user.username %}
+                {% if file.tbl_folder_file_set.count == 0 %}
+                    <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                <a class="mr-2" href="{{ file.get_absolute_url }}">{{ file.title }}</a>
+                                <small class="text-muted">{{ file.date|date:"F d, Y" }}</small>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <h2 class="account-heading">Shared Files</h2>
+        {% for file in files %}
+            {% for sharedfiles in file.tbl_share_with_user_set.all %}
+                {% if sharedfiles.user_id.user.username == user.username or sharedfiles.user_id2.user.username == user.username %}
+                    <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                <a class="mr-2" href={{ sharedfiles.get_absolute_url }}>{{ sharedfiles.file_id }}</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

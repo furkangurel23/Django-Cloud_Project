@@ -1,0 +1,46 @@
+{% extends "cloud/base.html" %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {% for folder in tbl_folder.get_all_children %}
+            {% if folder.parent_folder.title == tbl_folder.title %}
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="{{ folder.get_absolute_url }}">{{ folder.title }}</a>
+                            <small class="text-muted">{{ folder.date|date:"F d, Y" }}</small>
+                        </div>
+                        <h2>
+                            <small class="article-title" href="#">{{ folder.describtion }}</small>
+                        </h2> <!-- "article-title"-->
+                        <p class="article-content">{{ folder.size }}</p>
+                    </div>
+                </article>
+            {% endif %}
+
+        {% endfor %}
+        {% for file in tbl_folder.tbl_folder_file_set.all %}
+            {% if file.folder_id.folder_id == tbl_folder.folder_id %}
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="{{ file.file_id.get_absolute_url }}">{{ file.file_id.title }}</a>
+                            <small class="text-muted">{{ file.file_id.date|date:"F d, Y" }}</small>
+                        </div>
+                    </div>
+                </article>
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+{% endblock content %}
+
+{% block content2 %}
+    {% if object.owner_id == user.tbl_user %}
+        <p class='text-muted'>You can update/delete a folder or file here.
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'folder-update' object.folder_id %}">Update Folder</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'folder-delete' object.folder_id%}">Delete Folder</a>
+        
+
+    {% endif %}
+{% endblock content2 %}

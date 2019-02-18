@@ -1,0 +1,35 @@
+{% extends "cloud/base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media-body">
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <small class="text-muted">User Sharing : </small>
+                        <a class="mr-2"
+                           href="{{ tbl_share_with_user.user_id.get_absolute_url }}">{{ tbl_share_with_user.user_id.user.username }}</a>
+
+                    </div>
+                    <div class="article-metadata">
+                        <small class="text-muted">Shared User : </small>
+                        <a class="mr-2"
+                           href="{{ tbl_share_with_user.user_id2.get_absolute_url }}">{{ tbl_share_with_user.user_id2.user.username }}</a>
+
+                    </div>
+                    <div class="article-metadata">
+                        <small class="text-muted">Sharing File : </small>
+                        <a class="mr-2"
+                           href="{{ tbl_share_with_user.file_id.get_absolute_url }}">{{ tbl_share_with_user.file_id.title }}</a>
+
+                    </div>
+                </div>
+            </article>
+            <p class="text-secondary">Expire on : {{ tbl_share_with_user.expire_on }}</p>
+            <p class="text-secondary">Readable Writable : {{ tbl_share_with_user.readable_writable}}</p>
+        </div>
+
+    </div>
+
+
+{% endblock content %}c

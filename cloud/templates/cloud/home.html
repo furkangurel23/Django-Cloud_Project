@@ -1,0 +1,39 @@
+{% extends "cloud/base.html" %}
+{% block content %}
+    
+    {% if user.is_authenticated %}
+
+        
+
+        <h1 style="color:blue;">Home Page</h1>
+
+        
+
+        <h2>  Cloud System</h2>
+        <p>Welcome to Cloud System, a website developed by <em>Tugay Calyan and Furkan Gurel</em>!</p>
+        <h3>Dynamic content</h3>
+        <p>The Cloud System has the following record counts:</p>
+        <ul>
+            <li><strong>Number of Groups:</strong> {{ num_groups }}</li>
+            <li><strong>Number of Files:</strong> {{ num_files }}</li>
+            <li><strong>Number of Folder:</strong> {{ num_folder }}</li>
+            <li><strong>Number of Shared Files:</strong> {{ num_shared }}</li>
+        </ul>
+        <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'folders' %}">Folders,Files and Shared Files</a>
+
+                </div>
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'contacts' %}">Contacts</a>
+                </div>
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'groups' %}">Groups</a>
+                </div>
+
+            </div>
+        </article>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "cloud/base.html" %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+                {% for group_user in tbl_groups.tbl_groups_user_set.all%}
+                    {% if group_user.user_id.user.username != user.username%}
+                        <article class="media content-section">
+                            <div class="media-body">
+                                <div class="article-metadata">
+                                    <a class="mr-2" href="{{ group_user.user_id.get_absolute_url }}">{{ group_user.user_id.user.username }}</a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endif %}
+                {% endfor %}
+    {% endif %}
+{% endblock content %}

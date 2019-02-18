@@ -1,0 +1,18 @@
+{% extends "cloud/base.html" %}
+
+{% block content %}
+  <h1>User Name: {{ tbl_contact.full_name }}</h1>
+  <p><strong>E-mail:</strong> <a href="">{{ tbl_contact.e_mail }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Phone Number:</strong> {{ tbl_contact.phone_number}}</p>
+  <p><strong>Location:</strong> {{ tbl_contact.location }}</p>
+  <p><strong>From Next Cloud:</strong> {{ tbl_contact.from_next_cloud_or_another }}</p>
+{% endblock %}
+
+{% block content2 %}
+    {% if object.owner_id == user.tbl_user %}
+        <p class='text-muted'>You can delete a contact here. 			
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'contact-delete' object.contact_id%}">Delete Contact</a>
+        
+
+    {% endif %}
+{% endblock content2 %}
